@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/app.dart';
+import 'package:flutter_clone_insta/src/binding/init_bindings.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.white,
               titleTextStyle: TextStyle(color: Colors.black),
           )),
+      initialBinding: InitBinding(),
       home: const App(),
     );
   }
