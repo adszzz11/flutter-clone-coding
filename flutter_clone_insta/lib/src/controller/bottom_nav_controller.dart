@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../pages/upload.dart';
+import '../components/message_popup.dart';
 
 enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
 
@@ -38,7 +42,6 @@ class BottomNavController extends GetxController {
   int popCounter = 0;
 
   Future<bool> willPopAction() async {
-
     // 배경 시간
     DateTime currentTime = DateTime.now();
 
@@ -46,16 +49,15 @@ class BottomNavController extends GetxController {
     previousTime == null ? previousTime = currentTime : null;
 
     if (currentTime.difference(previousTime!).inSeconds.toInt() < 5) {
-
       // 5초 전 뒤로가기 버튼을 눌렀을 경우
       print('5초 전 뒤로가기 버튼 누름.');
       popCounter++;
       print(popCounter);
-      if(popCounter==2) {
+      if (popCounter == 2) {
         print('두 번 연속 뒤로가기 누름');
         //뒤로가기 버튼을 두 번 눌렀을 경우
         bottomHistory.clear();
-        popCounter=0;
+        popCounter = 0;
         print(popCounter);
         changeBottomNav(0);
         return false;
@@ -68,6 +70,18 @@ class BottomNavController extends GetxController {
     }
 
     if (bottomHistory.length == 1) {
+      showDialog(
+          context: Get.context!,
+          builder: (context) => MessagePopup(
+                message: '종료하시겠습니까?',
+                okCallback: () {
+                  exit(0);
+                },
+                cancelCallback: () {
+                  Get.back();
+                },
+                title: '시스템',
+              ));
       print('exit');
       return true;
     } else {
