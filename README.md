@@ -17,7 +17,7 @@ PLUGINS
 
 flutter install
 
-Windows
-https://www.youtube.com/watch?v=_v_NP_Xw4pA
-Mac
-https://www.youtube.com/watch?v=xJlBF9NgDag&t=303s
+Windows<br>
+https://www.youtube.com/watch?v=_v_NP_Xw4pA<br>
+Mac<br>
+https://www.youtube.com/watch?v=xJlBF9NgDag&t=303s<br>
