@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/components/avater_widget.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
+import 'package:flutter_clone_insta/src/components/post_widget.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -61,7 +62,9 @@ class Home extends StatelessWidget {
   }
 
   Widget _postList() {
-    return Container();
+    return Column(
+      children: List.generate(50, (index) => PostWidget()).toList(),
+    );
   }
 
   Widget _myStory() {
@@ -83,7 +86,13 @@ class Home extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.blue,
                   border: Border.all(color: Colors.white, width: 2)),
-              child: const Center(child: Text("+", style: TextStyle(fontSize: 20,color: Colors.white,height: 1.1),),),
+              child: const Center(
+                child: Text(
+                  "+",
+                  style:
+                      TextStyle(fontSize: 20, color: Colors.white, height: 1.1),
+                ),
+              ),
             ))
       ],
     );
