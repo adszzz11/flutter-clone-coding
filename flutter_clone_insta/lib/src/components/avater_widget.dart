@@ -24,13 +24,13 @@ class AvatarWidget extends StatelessWidget {
     switch (type) {
       case AvatarType.TYPE1:
         return type1Widget();
-        break;
+
       case AvatarType.TYPE2:
         return type2Widget();
-        break;
+
       case AvatarType.TYPE3:
-        // return type3Widget();
-        break;
+        return type3Widget();
+
       case AvatarType.TYPE4:
         // TODO: Handle this case.
         break;
@@ -71,6 +71,18 @@ class AvatarWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget type3Widget() {
+    return Row(
+      children: [
+        type1Widget(),
+        Text(
+          nickname ?? '',
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+      ],
     );
   }
 }
