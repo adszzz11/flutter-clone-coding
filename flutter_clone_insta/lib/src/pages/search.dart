@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_clone_insta/src/pages/search/search_focus.dart';
 import 'package:get/get.dart';
 import 'package:quiver/iterables.dart';
 
@@ -49,22 +50,28 @@ class _SearchState extends State<Search> {
     return Row(
       children: [
         Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            margin: const EdgeInsets.only(left: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: Color(0xffefefef),
-            ),
-            child: Row(
-              children: const [
-                Icon(Icons.search),
-                Text('검색',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xff838383),
-                    )),
-              ],
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchFocus()));
+              // Get.to(SearchFocus());
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              margin: const EdgeInsets.only(left: 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Color(0xffefefef),
+              ),
+              child: Row(
+                children: const [
+                  Icon(Icons.search),
+                  Text('검색',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xff838383),
+                      )),
+                ],
+              ),
             ),
           ),
         ),
