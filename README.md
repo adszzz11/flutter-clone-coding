@@ -12,6 +12,8 @@ IDE : Android Studio
 PLUGINS
  - GET
  - cached_network_image
+ - expandable_text
+ - quiver
 
 
 1일에 1커밋 이상을 목표로 진행해보겠다.
