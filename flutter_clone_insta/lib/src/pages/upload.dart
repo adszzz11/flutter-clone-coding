@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
 import 'package:get/get.dart';
 
-class Upload extends StatelessWidget {
+class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
 
+  @override
+  State<Upload> createState() => _UploadState();
+}
+
+class _UploadState extends State<Upload> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
