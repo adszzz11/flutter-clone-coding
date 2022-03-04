@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
 import 'package:get/get.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
@@ -10,6 +11,14 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
+  var albums = <AssetPathEntity>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPhotos();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +64,10 @@ class _UploadState extends State<Upload> {
   }
 
   Widget _imagePreview() {
+    var width = MediaQuery.of(context).size.width;
     return Container(
-      width: Get.width,
-      height: Get.width,
+      width: width,
+      height: width,
       color: Colors.grey,
     );
   }
@@ -131,5 +141,31 @@ class _UploadState extends State<Upload> {
         );
       },
     );
+  }
+
+
+  void _loadPhotos() async {
+    var result = await PhotoManager.requestPermissionExtend();
+    if (result.isAuth) {
+      albums = await PhotoManager.getAssetPathList(
+        type: RequestType.image,
+        filterOption: FilterOptionGroup(
+          imageOption: const FilterOption(
+            sizeConstraint: SizeConstraint(minHeight: 100, minWidth: 100),
+          ),
+          orders: [
+            const OrderOption(type: OrderOptionType.createDate, asc: false),
+          ],
+        ),
+      );
+      _loadData();
+    } else {
+      //msg require permission
+    }
+  }
+
+  void _loadData()  async{
+    print(albums.first.name);
+
   }
 }
