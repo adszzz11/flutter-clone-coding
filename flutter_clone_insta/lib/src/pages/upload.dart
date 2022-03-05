@@ -12,6 +12,7 @@ class Upload extends StatefulWidget {
 
 class _UploadState extends State<Upload> {
   var albums = <AssetPathEntity>[];
+  var headerTitle = '';
 
   @override
   void initState() {
@@ -82,10 +83,10 @@ class _UploadState extends State<Upload> {
             padding: const EdgeInsets.all(5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  '갤러리',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  headerTitle,
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
                 ),
                 Icon(Icons.arrow_drop_down),
               ],
@@ -143,7 +144,6 @@ class _UploadState extends State<Upload> {
     );
   }
 
-
   void _loadPhotos() async {
     var result = await PhotoManager.requestPermissionExtend();
     if (result.isAuth) {
@@ -164,8 +164,10 @@ class _UploadState extends State<Upload> {
     }
   }
 
-  void _loadData()  async{
-    print(albums.first.name);
-
+  void _loadData() {
+    headerTitle = albums.first.name;
+    update();
   }
+
+  void update() => setState(() {});
 }
