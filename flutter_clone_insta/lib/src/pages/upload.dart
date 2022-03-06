@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,8 @@ class Upload extends StatefulWidget {
 class _UploadState extends State<Upload> {
   var albums = <AssetPathEntity>[];
   var headerTitle = '';
+  var imageList = <AssetEntity>[];
+  AssetEntity? selectImage;
 
   @override
   void initState() {
@@ -67,10 +71,12 @@ class _UploadState extends State<Upload> {
   Widget _imagePreview() {
     var width = MediaQuery.of(context).size.width;
     return Container(
-      width: width,
-      height: width,
-      color: Colors.grey,
-    );
+        width: width,
+        height: width,
+        color: Colors.grey,
+        child: selectImage == null
+            ? Container()
+            : _photoWidget(selectImage!, width.toInt()));
   }
 
   Widget _header() {
@@ -105,7 +111,7 @@ class _UploadState extends State<Upload> {
                     ImageData(IconsPath.imageSelectIcon),
                     Text(
                       '여러 항목 선택',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      style: const TextStyle(color: Colors.white, fontSize: 14),
                     )
                   ],
                 ),
@@ -135,11 +141,9 @@ class _UploadState extends State<Upload> {
           mainAxisSpacing: 1,
           crossAxisSpacing: 1,
           childAspectRatio: 1),
-      itemCount: 100,
+      itemCount: imageList.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          color: Colors.red,
-        );
+        return _photoWidget(imageList[index], 200);
       },
     );
   }
@@ -164,10 +168,32 @@ class _UploadState extends State<Upload> {
     }
   }
 
-  void _loadData() {
+  void _loadData() async {
     headerTitle = albums.first.name;
+    await _pagingPhotos();
     update();
   }
 
   void update() => setState(() {});
+
+  Future<void> _pagingPhotos() async {
+    var photos = await albums.first.getAssetListPaged(0, 30);
+    imageList.addAll(photos);
+    selectImage = imageList.first;
+  }
+
+  Widget _photoWidget(AssetEntity asset, int size) {
+    return FutureBuilder(
+        future: asset.thumbDataWithSize(size, size),
+        builder: (_, AsyncSnapshot<Uint8List?> snapshot) {
+          if (snapshot.hasData) {
+            return Image.memory(
+              snapshot.data!,
+              fit: BoxFit.cover,
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
 }
