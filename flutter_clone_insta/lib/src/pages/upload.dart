@@ -76,7 +76,12 @@ class _UploadState extends State<Upload> {
         color: Colors.grey,
         child: selectImage == null
             ? Container()
-            : _photoWidget(selectImage!, width.toInt()));
+            : _photoWidget(selectImage!, width.toInt(), builder: (data) {
+                return Image.memory(
+                  data,
+                  fit: BoxFit.cover,
+                );
+              }));
   }
 
   Widget _header() {
@@ -134,18 +139,25 @@ class _UploadState extends State<Upload> {
 
   Widget _imageSelectList() {
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          mainAxisSpacing: 1,
-          crossAxisSpacing: 1,
-          childAspectRatio: 1),
-      itemCount: imageList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return _photoWidget(imageList[index], 200);
-      },
-    );
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1,
+            childAspectRatio: 1),
+        itemCount: imageList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _photoWidget(imageList[index], 200, builder: (data) {
+            return Opacity(
+              opacity: imageList[index] == selectImage ? 0.3 : 1,
+              child: Image.memory(
+                data,
+                fit: BoxFit.cover,
+              ),
+            );
+          });
+        });
   }
 
   void _loadPhotos() async {
@@ -182,15 +194,13 @@ class _UploadState extends State<Upload> {
     selectImage = imageList.first;
   }
 
-  Widget _photoWidget(AssetEntity asset, int size) {
+  Widget _photoWidget(AssetEntity asset, int size,
+      {required Widget Function(Uint8List) builder}) {
     return FutureBuilder(
         future: asset.thumbDataWithSize(size, size),
         builder: (_, AsyncSnapshot<Uint8List?> snapshot) {
           if (snapshot.hasData) {
-            return Image.memory(
-              snapshot.data!,
-              fit: BoxFit.cover,
-            );
+            return builder(snapshot.data!);
           } else {
             return Container();
           }
