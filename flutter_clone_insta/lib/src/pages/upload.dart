@@ -90,17 +90,68 @@ class _UploadState extends State<Upload> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  headerTitle,
-                  style: const TextStyle(color: Colors.black, fontSize: 18),
-                ),
-                Icon(Icons.arrow_drop_down),
-              ],
+          GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                //TODO : 어떻게 하면 더 간단하게 할 수 있을까?
+                  isScrollControlled: albums.length > 10 ? true : false,
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
+                  context: context,
+                  builder: (_) => Container(
+                        height: albums.length > 10
+                            ? Size.infinite.height
+                            : albums.length * 60,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 7),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black54),
+                                  width: 40,
+                                  height: 4,
+                                ),
+                              ),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: List.generate(
+                                        albums.length,
+                                        (index) => Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15,
+                                                      horizontal: 20),
+                                              child: Text(albums[index].name),
+                                            )),
+                                  ),
+                                ),
+                              )
+                            ]),
+                      ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    headerTitle,
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                  Icon(Icons.arrow_drop_down),
+                ],
+              ),
             ),
           ),
           Row(
@@ -151,7 +202,7 @@ class _UploadState extends State<Upload> {
           return _photoWidget(imageList[index], 200, builder: (data) {
             return GestureDetector(
               onTap: () {
-                selectImage=imageList[index];
+                selectImage = imageList[index];
                 update();
               },
               child: Opacity(
@@ -180,6 +231,33 @@ class _UploadState extends State<Upload> {
           ],
         ),
       );
+      // albums.addAll([
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      //   AssetPathEntity()..name='1',
+      // ]);
       _loadData();
     } else {
       //msg require permission
