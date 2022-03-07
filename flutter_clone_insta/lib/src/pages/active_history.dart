@@ -20,23 +20,23 @@ class ActiveHistory extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _newRecentlyActiveView(),
-            _newRecentlyThisWeekView(),
-            _newRecentlyThisMonthView(),
+            _newRecentlyActiveView('오늘'),
+            _newRecentlyActiveView('이번 주'),
+            _newRecentlyActiveView('이번 달'),
           ],
         ),
       ),
     );
   }
 
-  Widget _newRecentlyActiveView() {
+  Widget _newRecentlyActiveView(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            '오늘',
+            title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const SizedBox(
