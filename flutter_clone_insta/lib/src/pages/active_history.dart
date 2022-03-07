@@ -52,43 +52,6 @@ class ActiveHistory extends StatelessWidget {
     );
   }
 
-  Widget _newRecentlyThisWeekView() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            '이번 주',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          _activeItemOne(),
-          _activeItemOne(),
-          _activeItemOne(),
-          _activeItemOne(),
-        ],
-      ),
-    );
-  }
-
-  Widget _newRecentlyThisMonthView() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            '이번 달',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          _activeItemOne(),
-          _activeItemOne(),
-          _activeItemOne(),
-        ],
-      ),
-    );
-  }
-
   Widget _activeItemOne() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
