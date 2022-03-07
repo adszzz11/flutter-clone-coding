@@ -45,7 +45,7 @@ class _UploadState extends State<Upload> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: Get.back,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: ImageData(
