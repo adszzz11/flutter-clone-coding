@@ -24,3 +24,7 @@ Windows<br>
 https://www.youtube.com/watch?v=_v_NP_Xw4pA<br>
 Mac<br>
 https://www.youtube.com/watch?v=xJlBF9NgDag&t=303s<br>
+
+<br>
+Youtube<br>
+https://www.youtube.com/c/%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94%EB%82%A8%EC%9E%90
