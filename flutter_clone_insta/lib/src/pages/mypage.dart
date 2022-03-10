@@ -3,8 +3,21 @@ import 'package:flutter_clone_insta/src/components/avater_widget.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
 import 'package:flutter_clone_insta/src/components/user_card.dart';
 
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
+
+  @override
+  State<MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +59,9 @@ class MyPage extends StatelessWidget {
             _infomation(),
             _menu(),
             _discoverPeople(),
+            const SizedBox(height: 20,),
+            _tabMenu(),
+            _tabView(),
           ],
         ),
       ),
@@ -62,7 +78,7 @@ class MyPage extends StatelessWidget {
             children: [
               AvatarWidget(
                 thumbPath:
-                    'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
+                'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
                 type: AvatarType.TYPE3,
                 size: 80,
               ),
@@ -116,20 +132,20 @@ class MyPage extends StatelessWidget {
         children: [
           Expanded(
               child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 7),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3),
-                border: Border.all(color: const Color(0xffdedede))),
-            child: const Text(
-              'Edit Profile',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          )),
+                padding: const EdgeInsets.symmetric(vertical: 7),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    border: Border.all(color: const Color(0xffdedede))),
+                child: const Text(
+                  'Edit Profile',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              )),
           const SizedBox(
             width: 8,
           ),
@@ -178,10 +194,52 @@ class MyPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: List.generate(10, (index) =>  UserCard(userId: '사이먼$index', description: '배고픔$index님이 팔로우합니다.',)).toList(),
+            children: List.generate(
+                10,
+                    (index) =>
+                    UserCard(
+                      userId: '사이먼$index',
+                      description: '배고픔$index님이 팔로우합니다.',
+                    )).toList(),
           ),
         ),
       ],
     );
   }
+
+  Widget _tabMenu() {
+    return TabBar(
+        controller: _tabController,
+        indicatorColor: Colors.black,
+        indicatorWeight: 1,
+        tabs: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Container(
+              child: ImageData(IconsPath.gridViewOn),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Container(
+              child: ImageData(IconsPath.myTagImageOff),
+            ),
+          ),
+        ]);
+  }
+
+  Widget _tabView() {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: 100,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 1,
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1), itemBuilder: (BuildContext context, index) {
+          return Container(color: Colors.grey,);
+    });
+  }
+
 }
