@@ -17,8 +17,7 @@ PLUGINS
  - photo_manager 
  
 
-
-1일에 1커밋 이상을 목표로 진행해보겠다.
+영상 업데이트 시 진행 예정
 
 flutter install
 
