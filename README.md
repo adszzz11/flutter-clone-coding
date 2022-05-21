@@ -9,7 +9,7 @@ Flutter의 동태 파악 및 취미용으로 만들었다.
 
 IDE : Android Studio
 
-Firebase Function 사요
+Firebase Function 사용
 
 PLUGINS
  - GET
